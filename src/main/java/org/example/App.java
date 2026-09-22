@@ -67,7 +67,7 @@ public class App extends Application {
                     checkButton.setVisible(true);
                 });
             } catch (Exception ex) {
-                Platform.runLater(() -> dataLabel.setText("Ошибка: " + ex.getMessage()));
+                Platform.runLater(() -> dataLabel.setText("Ошибка: нет связи с сервером. Проверьте сеть и повторите запрос."));
             }
         }).start();
     }
