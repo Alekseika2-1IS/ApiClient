@@ -60,6 +60,11 @@ public class App extends Application {
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest request = HttpRequest.newBuilder(URI.create(URL + type)).GET().build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                if (response.statusCode() != 200) {
+                    Platform.runLater(() -> dataLabel.setText("Ошибка сервера: код " + response.statusCode()
+                            + (response.statusCode() == 500 ? " — обратитесь к главному эксперту" : "")));
+                    return;
+                }
                 Matcher m = Pattern.compile("\"value\"\\s*:\\s*\"(.*)\"").matcher(response.body());
                 value = m.find() ? m.group(1) : "";
                 Platform.runLater(() -> {
